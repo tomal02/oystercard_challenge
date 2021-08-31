@@ -5,6 +5,22 @@ describe Oystercard do
 		expect (subject.balance) == 0
 	end
 
+	it 'should start with journey as false' do
+		expect(subject.in_journey?).to eq false
+	end
+
+	it 'in journey should be true when card is touched in' do
+		subject.touch_in
+		expect(subject.in_journey?).to eq true
+	end
+
+	it 'in journey should be true when card is touched in' do
+		oyster = Oystercard.new
+		oyster.touch_in
+		oyster.touch_out
+		expect(oyster.in_journey?).to eq false
+	end
+
 	describe '#top_up' do
 
 		it 'Should top up balance' do
