@@ -4,4 +4,9 @@ describe Oystercard do
   it 'Should initialize with a balance of 0' do
 		expect (subject.balance) == 0
 	end
+
+	it 'Should top up balance' do
+		subject.top_up(10)
+		expect(subject.balance) == 10
+	end
 end
