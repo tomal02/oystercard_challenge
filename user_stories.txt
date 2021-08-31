@@ -45,3 +45,5 @@ I need a penalty charge deducted if I fail to touch in or out
 In order to be charged the correct amount
 As a customer
 I need to have the correct fare calculated
+
+https://docs.google.com/document/d/1eQaz36UJooZsCCdUwqSrMdr7S4Lwc0llEMCIEdMADXM/edit?usp=sharing
