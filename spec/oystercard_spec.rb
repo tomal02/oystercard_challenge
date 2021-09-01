@@ -2,6 +2,7 @@
 require 'oystercard'
 describe Oystercard do
 	let(:entry_station) { double :entry_station }
+	let(:exit_station) { double :exit_station }
 
   describe '#top_up' do
 
@@ -40,23 +41,36 @@ describe Oystercard do
 		oyster = Oystercard.new
     oyster.top_up(5)
 		oyster.touch_in(entry_station)
-		oyster.touch_out
+		oyster.touch_out(exit_station)
 		expect(oyster.in_journey?).to eq false
 	end
 
   it 'should deduct min fare when touching out' do
     subject.top_up(10)
     subject.touch_in(entry_station)
-    expect{ subject.touch_out }.to change{ subject.balance }.by(-Oystercard::MIN_FARE)
+    expect{ subject.touch_out(exit_station) }.to change{ subject.balance }.by(-Oystercard::MIN_FARE)
   end
 
   describe '#stations' do
-   	#let(:entry_station) { double :entry_station }
 
-	  it 'should remeber the entry station' do
+	  it 'should remember the entry station' do
 		subject.top_up(10)
     	subject.touch_in(entry_station)
 		expect(subject.entry_station).to eq entry_station
+	  end
+
+	  it 'should remember the exit station' do
+		  subject.top_up(10)
+		  subject.touch_in(entry_station)
+		  subject.touch_out(exit_station)
+		  expect(subject.exit_station).to eq exit_station
+	  end
+
+	  it 'should record both entry and exit station in journeys' do
+		  subject.top_up(10)
+		  subject.touch_in(entry_station)
+		  subject.touch_out(exit_station)
+		  expect(subject.journeys).to include([entry_station, exit_station])
 	  end
     end
 end
